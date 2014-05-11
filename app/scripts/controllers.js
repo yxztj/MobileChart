@@ -10,6 +10,16 @@ angular.module('Yoionic.controllers', [])
 	$timeout(function () {
   	$scope.friends = Friends.all();
   } , 1000 );
+
+  $scope.addlist = function () {
+  	$scope.extra = [
+    { id: 4, name: 'Scruff McGruff' },
+    { id: 5, name: 'G.I. Joe' },
+    { id: 6, name: 'Miss Frizzle' },
+    { id: 7, name: 'Ash Ketchum' }
+  ];
+  	$scope.friends = $scope.friends.concat($scope.extra);
+  }
   
 })
 

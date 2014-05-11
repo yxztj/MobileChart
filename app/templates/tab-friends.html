@@ -1,15 +1,16 @@
 <ion-view title="Friends">
   <ion-content class="has-header">
   <input placeholder="filter" ng-model="f" />
+  <button ng-click="addlist()">test</button>
     <ion-list>
-<!--       <ion-item class="animate-repeat" ng-repeat="friend in friends | filter:f" type="item-text-wrap" href="#/tab/friend/{{friend.id}}">
+      <ion-item class="animate" ng-repeat="friend in friends | filter:f" type="item-text-wrap" href="#/tab/friend/{{friend.id}}">
         {{friend.name}}
       </ion-item>
-    </ion-list> -->
-    <ul >
-    <li class="animate-repeat" ng-repeat="friend in friends | filter:f" type="item-text-wrap" href="#/tab/friend/{{friend.id}}">
+    </ion-list>
+<!--     <ul >
+    <li class="animate" ng-repeat="friend in friends | filter:f" type="item-text-wrap" href="#/tab/friend/{{friend.id}}">
       [{{$index + 1}}] {{friend.name}} who is {{friend.age}} years old.
     </li>
-  </ul>
+  </ul> -->
   </ion-content>
 </ion-view>
