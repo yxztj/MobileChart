@@ -10,7 +10,7 @@ angular.module('Yoionic', ['ionic', 'Yoionic.controllers', 'Yoionic.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    StatusBar.styleDefault();
+    //StatusBar.styleDefault();
   });
 })
 
