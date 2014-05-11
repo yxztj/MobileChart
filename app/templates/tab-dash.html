@@ -1,0 +1,39 @@
+<ion-view title="Dashboard" ng-controller="DashCtrl">
+  <ion-content class="has-header padding">
+
+
+<!-- <label class="toggle">
+   <input type="checkbox" ng-model="checked">
+   <div class="track">
+     <div class="handle"></div>
+   </div>
+</label>
+
+	<div class="card check-element animate-show" ng-show="checked" >
+	  <div class="item item-divider">
+	    I'm a Header in a Card!
+	  </div>
+	  <div class="item item-text-wrap">
+	    This is a basic Card with some text.
+	  </div>
+	  <div class="item item-divider">
+	    I'm a Footer in a Card!
+	  </div>
+	</div> -->
+
+  <div class="well" style="margin-top: 30px; width: 200px; overflow: hidden;">
+    <form class="form-search"> 
+        <div class="input-append">
+          <input type="text" ng-model="search" class="search-query" style="width: 80px">
+          <button type="submit" class="btn">Search</button>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+          <li class="animate" ng-repeat="name in names | filter:search">
+            <a href="#"> {{name}} </a>
+          </li> 
+      </ul>
+    </form>
+  </div>
+
+  </ion-content>
+</ion-view>
