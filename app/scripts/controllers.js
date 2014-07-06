@@ -42,6 +42,10 @@ angular.module('Yoionic.controllers', [])
     } 
   }
 
+$.getJSON('highstock-basic-data.json', function (data)    {
+  loadChart('cnybtc');
+});
+
 })
 
 

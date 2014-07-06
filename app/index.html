@@ -20,8 +20,11 @@
   
 
   </head>
+<body>
+      <div id="chart_container" style="width:100%;height:200px"></div>
+ <div ng-app="Yoionic" animation="slide-left-right-ios7" ng-hide="true">
 
-  <body ng-app="Yoionic" animation="slide-left-right-ios7">
+
     <!-- 
       The nav bar that will be updated as we navigate between views.
     -->
@@ -37,6 +40,8 @@
     -->
     <ion-nav-view></ion-nav-view>
 
+</div>
+
     <!-- build:js scripts/vendor.js -->
     <!-- <script src="vendor/someContribJs.js"></script> -->
     <!-- bower:js -->
@@ -46,8 +51,7 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/ionic/release/js/ionic.js"></script>
     <script src="bower_components/ionic/release/js/ionic-angular.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
@@ -55,8 +59,17 @@
     <script src="scripts/controllers.js"></script>
     <!-- endbuild -->
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="scripts/socket.io-1.0.6.js"></script>
+    <script src="scripts/highstock.js"></script>
+    <script src="scripts/highcharts-more.js"></script>
+    <script src="scripts/technical-indicators.src.js"></script>
+    <script src="scripts/charts_mobile.js"></script>
+    <script type="text/javascript">
+        $.getJSON('highstock-basic-data.json', function (data)    {
+          loadChart('cnybtc');
+        });
+    </script>
 
   </body>
 </html>
