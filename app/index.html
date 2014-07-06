@@ -18,10 +18,19 @@
 
     <link rel="stylesheet" href="styles/style.css">
   
-
+<style type="text/css">
+body {
+    background-color: #000000;
+}
+</style>
   </head>
 <body>
-      <div id="chart_container" style="width:100%;height:200px"></div>
+<div id="chart_container" style="width:100%;height:200px"></div>
+<button id="initbtc">initbtc</button>
+<button id="btn1h">1h</button>
+<button id="btn1d">1d</button>
+
+
  <div ng-app="Yoionic" animation="slide-left-right-ios7" ng-hide="true">
 
 
@@ -66,9 +75,26 @@
     <script src="scripts/technical-indicators.src.js"></script>
     <script src="scripts/charts_mobile.js"></script>
     <script type="text/javascript">
-        $.getJSON('highstock-basic-data.json', function (data)    {
-          loadChart('cnybtc');
-        });
+    var setBtcPeriod, setLtcPeriod;
+$("#initbtc").click(function() {
+    console.log("clicked");
+    setLtcPeriod = loadChart('cnybtc');
+    //console.log(test);
+    //test('_1h');
+
+});
+
+$("#btn1d").click(function() {
+    console.log("clicked");
+    setLtcPeriod('_1d');
+
+});
+$("#btn1h").click(function() {
+    console.log("clicked");
+    setLtcPeriod('_1h');
+    console.log(charts['cnybtc']);
+
+});
     </script>
 
   </body>

@@ -142,10 +142,10 @@ else {
 	}
 }
 
-socket.emit('subscribe', 
-	['marketdata_cnybtc', 
-	'marketdata_cnyltc', 
-	'marketdata_btcltc']);   
+// socket.emit('subscribe', 
+// 	['marketdata_cnybtc', 
+// 	'marketdata_cnyltc', 
+// 	'marketdata_btcltc']);   
 
 socket.on('connect', function(){
 	socket.on('trade', function (data) {
@@ -162,16 +162,18 @@ var loadedMarket = [];
 
 function loadChart(market){
 	if ($.inArray(market, loadedMarket) != -1) {
+		console.log(market + " already loaded");
 		return true;
 	}
 
 	loadedMarket.push(market);
-
+	console.log("loading " + market + " chart");
 	charts[market] = new Highcharts.StockChart({
 		chart: {
 			renderTo: 'chart_container',
 			events: {
 				redraw: function (event) {
+					console.log("Redrawing " + market + " chart");
 					if (charts[market].xAxis && !initloading[market][currenttimekey[market]] && !nomoredata[market][currenttimekey[market]]) {
 						var extremes = charts[market].xAxis[0].getExtremes();
 						if (extremes && extremes.min < extremes.dataMin + timeunits[currenttimekey[market]] * preloaddiff * 1000) {
@@ -204,51 +206,12 @@ function loadChart(market){
       pinchType: 'x'
 		},
 
-		// title: {
-		// 	text: charttitles[market]
-		// },
-
 		credits: {
 			enabled: false
 		},
 		rangeSelector: {
 			enabled: false
-			// buttons: [
-			// 	{
-			// 		type: 'day',
-			// 		count: 1,
-			// 		text: '1d',
-			// 		onclick: function(e) {
-			// 			e.preventDefault();
-			// 		}
-			// 	},
-			// 	{
-			// 		type: 'day',
-			// 		count: 2,
-			// 		text: '2d'
-			// 	}
-			// ],
-			// inputEnabled: false,
-			// buttonTheme: { // styles for the buttons
-	  //   		fill: '#1c1c1c',
-	  //   		stroke: 'white',
-	  //   		'stroke-width': 0,
-	  //   		r: 2,
-	  //   		style: {
-	  //   			color: 'white',
-	  //   			fontWeight: 'bold'
-	  //   		},
-	  //   		states: {
-	  //   			hover: {
-	  //   			},
-	  //   			select: {
-	  //   				fill: '#848484',
-	  //   				style: {
-	  //   					color: 'white'
-	  //   				}
-	  //   			}
-	  //   		}
-	  //   	},
+
 		},
 
 		tooltip: {
@@ -312,7 +275,8 @@ function loadChart(market){
 			},
 			column: {
 				color: '#606060',
-				lineWidth: 1
+				lineWidth: 2,
+				borderWidth: 0
 			},
 			trendline: {
 				lineWidth: 1
@@ -337,7 +301,7 @@ function loadChart(market){
 
 		xAxis: {
 			type: 'datetime',
-			range: 2.5 * 24 * 3600 * 1000, // 2.5 days by default
+	//		range: 2.5 * 24 * 3600 * 1000, // 2.5 days by default
 			dateTimeLabelFormats: {
 				second: '%H:%M:%S',
 				minute: '%H:%M',
@@ -355,9 +319,10 @@ function loadChart(market){
 				y: 15
 			},
 			lineColor: 'gray',
-			tickInterval: 12 * 3600 * 1000,
+			tickPixelInterval: 50,
 			tickLength: 5,
 			tickColor: 'gray',
+			tickmarkPlacement: 'on',
 			events: {
 				setExtremes: function(e) {
 
@@ -463,8 +428,12 @@ function loadChart(market){
 
 	});
 
+this.testfunc = function () {
+	console.log("test func");
+}
+
 	socket.on('chartdata_' + market, function (data) {
-		console.log('chartdata_' + market + ': ', data);
+		console.log('Received chartdata_' + market + ': ', data);
 		loading[market][currenttimekey[market]] = false;
 
 		if ($.isEmptyObject(data)) {
@@ -537,21 +506,21 @@ function loadChart(market){
 		initloading[market][currenttimekey[market]] = false;
 	});
 
-function manualReset() {
-	var max = charts[market].xAxis[0].getExtremes().dataMax;
-	var min = max - defaultrange * timeunits[currenttimekey[market]] * 1000;
+	function manualReset() {
+		var max = charts[market].xAxis[0].getExtremes().dataMax;
+		var min = max - defaultrange * timeunits[currenttimekey[market]] * 1000;
 
-	charts[market].xAxis[0].setExtremes(
-		min,
-		max
-	);
-}
-
+		charts[market].xAxis[0].setExtremes(
+			min,
+			max
+		);
+	}
 	function loadData(unit, totime) {
+		console.log("loadData for market " + market);
 		if (loading[market][currenttimekey[market]] && (!unit || unit == currenttimekey[market])) {
 			return;
 		}
-
+console.log("new loaddata");
 		totime = totime || Math.round(new Date() / 1000);
 
 		if (unit) {
@@ -584,8 +553,12 @@ function manualReset() {
 		});
 	}
 
-	loadData('_2h');
+loadData('_1d');
+
+	return loadData;
 }
+
+
 
 
 function getModTime(time, mod) {
